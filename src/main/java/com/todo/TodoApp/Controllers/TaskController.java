@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.todo.TodoApp.Models.Task;
@@ -25,13 +26,14 @@ public class TaskController {
 		return ResponseEntity.ok(Map.of("data",service.getAllTasks()));
 	}
 	
-	@PostMapping
-	public ResponseEntity<Map<String,String>> addTask(Task t) {
-		try {
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return ResponseEntity.ok(Map.of("message","Task added successfully"));
+	@PostMapping("/add-task")
+	public ResponseEntity<Map<String,String>> addTask(@RequestBody Task t) {
+	    try {
+	        service.addTask(t);
+	        return ResponseEntity.ok(Map.of("message", "Task added successfully"));
+	    } catch (Exception e) {
+	        return ResponseEntity.internalServerError()
+	                .body(Map.of("message", "Failed to add Task"));
+	    }
 	}
 }
