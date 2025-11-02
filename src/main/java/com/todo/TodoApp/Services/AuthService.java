@@ -21,6 +21,11 @@ public class AuthService {
 		return "User created Successfully";
 	}
 	
+	public String userLogin(User u) {
+		User res = repo.findById(u.getUsername()).orElse(null);
+		return res.getPassword().equals(u.getPassword()) ? "User login success" : "wrong pasword"; 
+	}
+	
 	public List<User> getAll(){
 		return repo.findAll();
 	}

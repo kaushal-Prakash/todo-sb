@@ -31,6 +31,11 @@ public class AuthController {
 		return ResponseEntity.ok().body(Map.of("message",service.userSignup(u)));
 	}
 	
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody User u){
+		return ResponseEntity.ok(Map.of("message",service.userLogin(u)));
+	}
+	
 	@GetMapping("/")
 	public ResponseEntity<?> getAll(){
 		return ResponseEntity.ok(Map.of("data",service.getAll()));
