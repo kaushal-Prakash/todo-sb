@@ -21,4 +21,8 @@ public class TaskService {
 	public void addTask(Task t) {
 		repo.save(t);
 	}
+	
+	public void deleteTask(int id) {
+		repo.deleteById(id);
+	}
 }

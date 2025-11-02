@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,5 +37,16 @@ public class TaskController {
 	        return ResponseEntity.internalServerError()
 	                .body(Map.of("message", "Failed to add Task"));
 	    }
+	}
+	
+	@PutMapping("/delete/{id}")
+	public ResponseEntity<Map<String,String>> delTask(@PathVariable int id){
+		try {
+			service.deleteTask(id);
+			return ResponseEntity.ok().body(Map.of("message","Deleted task successfully"));
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError()
+					.body(Map.of("mesage","Failed to delete Task"));
+		}
 	}
 }
