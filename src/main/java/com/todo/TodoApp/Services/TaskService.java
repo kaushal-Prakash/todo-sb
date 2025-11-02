@@ -25,4 +25,12 @@ public class TaskService {
 	public void deleteTask(int id) {
 		repo.deleteById(id);
 	}
+	
+	public void completeTask(int id) {
+		Task t = repo.findById(id).orElse(null);
+		if(t != null) {
+			t.setCompleted(true);
+			repo.save(t);
+		}
+	}
 }
